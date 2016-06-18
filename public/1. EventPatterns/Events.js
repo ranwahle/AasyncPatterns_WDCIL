@@ -6,7 +6,6 @@
     function publisher(){
         this.topics = {};
 
-
     }
 
     publisher.prototype.addEventListener = function(eventName, callback){
