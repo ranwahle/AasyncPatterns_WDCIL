@@ -39,6 +39,6 @@ app.get('/allMessages', function(request, response){
 });
 
 
-http.listen(3001, function(){
-    console.log('listening on *:3001');
+http.listen(3010, function(){
+    console.log('listening on *:3010');
 });

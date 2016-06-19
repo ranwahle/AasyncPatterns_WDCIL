@@ -1,29 +1,57 @@
 /**
  * Created by ranwahle on 19/06/2016.
  */
-(function(){
+(function () {
 
-    function ajax(options){
+        function ajax(options) {
 
-        var xhr = new XMLHttpRequest();
+            function Promise() {
+                this.successCallbacks = [];
+                this.failCallbacks = [];
+                this.finalCallbacks = [];
+            }
 
-        xhr.open( options.method || 'get',
-                  options.url, true);
+            Promise.prototype.then = function (successCallback, failCallback) {
+                if (successCallback) {
+                    this.successCallbacks.push(successCallback);
+                }
+                if (failCallback) {
+                    this.failCallbacks.push(failCallback);
+                }
 
-        xhr.onreadystatechange = function(){
+                return this;
+            };
+
+            Promise.prototype.finally = function (finalCallback) {
+                if (finalCallback) {
+                    this.finalCallbacks.push(finalCallback);
+                }
+                return this;
+
+            };
+
+
+            var promise = new Promise();
             
-        };
+            var xhr = new XMLHttpRequest();
 
-        xhr.send();
+            xhr.open(options.method || 'get',
+                options.url, true);
+
+            xhr.onreadystatechange = function () {
+
+            };
+
+            xhr.send();
 
 
+        }
 
-
+        document.addEventListener('DOMContentLoaded', function () {
+            ajax({url: '/allmessages'});
+        });
 
     }
-
-    document.addEventListener('DOMContentLoaded',function(){
-        ajax({url: '/allmessages'});
-    });
-
-}());
+    ()
+)
+;
