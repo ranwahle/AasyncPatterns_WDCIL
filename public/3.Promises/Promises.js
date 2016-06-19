@@ -12,11 +12,16 @@
         }
 
         Promise.prototype.then = function (successCallback, failCallback) {
-            if (successCallback) {
-                this.successCallbacks.push(successCallback);
+            if (this.response || this.errorResponse){
+                runCallbacks(successCallback, failCallback);
             }
-            if (failCallback) {
-                this.failCallbacks.push(failCallback);
+            else {
+                if (successCallback) {
+                    this.successCallbacks.push(successCallback);
+                }
+                if (failCallback) {
+                    this.failCallbacks.push(failCallback);
+                }
             }
 
             return this;
@@ -31,18 +36,29 @@
         };
 
         Promise.prototype.resolve = function (data) {
+            this.response = data;
             this.successCallbacks.forEach(function (callback) {
                 callback(data);
             });
             runFinalCallbacks(this);
         };
 
-        Promise.prototype.reject = function (erorr) {
+        Promise.prototype.reject = function (error) {
+            this.errorResponse = error;
             this.failCallbacks.forEach(function (callback) {
-                callback(erorr);
+                callback(error);
             });
             runFinalCallbacks(this);
         };
+
+        function runCallbacks(successCallback, errorCallback){
+            if (this.response){
+                successCallback(this.response);
+            }
+            else{
+                errorCallback(this.errorResponse);
+            }
+        }
 
         function runFinalCallbacks(promise) {
             promise.finalCallbacks.forEach(function (callback) {
@@ -59,8 +75,14 @@
             options.url, true);
 
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                promise.resolve(JSON.parse( xhr.response));
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                promise.resolve(JSON.parse(xhr.response));
+            }
+            else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200) {
+                promise.reject(xhr.response);
+            }
+            else {
+                console.log(xhr.readyState);
             }
         };
 
@@ -75,13 +97,13 @@
     document.addEventListener('DOMContentLoaded', function () {
         ajax({url: '/allmessages'}).then(function (response) {
             console.log(response);
-        }).then(function(response){
-            response.forEach(function(message){
-                document.getElementById('chatContent').innerHTML +=  message.message + '</br/>';
-            }, function(error){
-                console.error(error);
+        }).then(function (response) {
+            response.forEach(function (message) {
+                document.getElementById('chatContent').innerHTML += message.message + '</br/>';
             });
-        }).finally(function(){
+        }, function (error) {
+            console.error(error);
+        }).finally(function () {
             document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';
         });
     });
