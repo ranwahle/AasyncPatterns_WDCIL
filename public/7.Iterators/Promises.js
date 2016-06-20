@@ -117,9 +117,7 @@
                     }
                     current =  messagesIterator.next();
                 }while(!current.done);
-                // messages.forEach(function (message) {
-                //     document.getElementById('chatContent').innerHTML += message.message + '</br/>';
-                // });
+                
             });
         }, function (error) {
             console.error(error);
