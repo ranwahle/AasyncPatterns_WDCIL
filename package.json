@@ -4,6 +4,7 @@
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.10.2",
+    "rxjs-es6": "^5.0.0-alpha.12",
     "socket.io": "^1.4.6"
   }
 }
