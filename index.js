@@ -34,8 +34,21 @@ io.on('connection', function(socket){
     });
 });
 
-app.get('/allMessages', function(request, response){
-    response.end(JSON.stringify( messages));
+app.get('/allMessages',function(request, response) {
+    response.end(JSON.stringify(messages));
+});
+
+
+
+app.get('/users', function (request, response)
+{
+    response.end(JSON.stringify({name: 'Ran', lastName: 'Wahle', id: 2}))
+});
+
+app.get('/users/:id/children', function(request, response){
+   response.end(JSON.stringify([{name: 'Shiri', lastName: 'Wahle'}
+   , {name: 'Yaron' , lastName: 'Wahle',}
+   , {name: 'Shani', lastName: 'Wahle'}]));
 });
 
 

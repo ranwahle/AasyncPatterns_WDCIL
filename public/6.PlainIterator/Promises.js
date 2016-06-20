@@ -130,7 +130,7 @@
             console.error(error);
         });
 
-        Promise.all([fetchPromise], function(value){
+        Promise.all([fetchPromise]).then(function(value){
             console.log('Fetch has resolved');
             document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';
         });

@@ -98,6 +98,7 @@
         for (let index = 0; index < collection.length; index++){
             yield collection[index];
         }
+
     }
 
     document.addEventListener('DOMContentLoaded', function () {
