@@ -42,7 +42,7 @@ app.get('/allMessages',function(request, response) {
 
 app.get('/users', function (request, response)
 {
-    response.end(JSON.stringify({name: 'Ran', lastName: 'Wahle', id: 2}))
+    response.end(JSON.stringify([{name: 'Ran', lastName: 'Wahle', id: 2}]))
 });
 
 app.get('/users/:id/children', function(request, response){

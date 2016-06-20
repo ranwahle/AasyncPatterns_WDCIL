@@ -8,13 +8,12 @@ function* getUserAndChildren(){
 }
 
 function getUsers(){
-    var fetchPromise =  fetch( '/users');
+    return  fetch( '/users').then(response=> response.json());
 
-    return fetchPromise;
 }
 
 function getFirstUserChildren(){
-    return fetch('/users/1/children');
+    return fetch('/users/1/children').then(response => response.json());
 }
 
 var usersAndChildren = getUserAndChildren();
