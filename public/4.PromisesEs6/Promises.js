@@ -111,6 +111,10 @@
                 console.error(error);
             }
         );
+
+        Promise.all([promise]).then(function(){
+            document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';
+        });
         // }).finally(function () {
         //     document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';
         // });
