@@ -28,7 +28,11 @@
         };
 
         Promise.prototype.finally = function (finalCallback) {
+
             if (finalCallback) {
+                if (this.response || this.errorResponse){
+                    setTimeout(finalCallback, 0);
+                }
                 this.finalCallbacks.push(finalCallback);
             }
             return this;

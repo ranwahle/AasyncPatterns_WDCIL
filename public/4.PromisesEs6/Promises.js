@@ -5,66 +5,7 @@
 
     function ajax(options) {
 
-        // function Promise() {
-        //     this.successCallbacks = [];
-        //     this.failCallbacks = [];
-        //     this.finalCallbacks = [];
-        // }
-        //
-        // Promise.prototype.then = function (successCallback, failCallback) {
-        //     if (this.response || this.errorResponse){
-        //         runCallbacks(successCallback, failCallback);
-        //     }
-        //     else {
-        //         if (successCallback) {
-        //             this.successCallbacks.push(successCallback);
-        //         }
-        //         if (failCallback) {
-        //             this.failCallbacks.push(failCallback);
-        //         }
-        //     }
-        //
-        //     return this;
-        // };
-        //
-        // Promise.prototype.finally = function (finalCallback) {
-        //     if (finalCallback) {
-        //         this.finalCallbacks.push(finalCallback);
-        //     }
-        //     return this;
-        //
-        // };
-        //
-        // Promise.prototype.resolve = function (data) {
-        //     this.response = data;
-        //     this.successCallbacks.forEach(function (callback) {
-        //         callback(data);
-        //     });
-        //     runFinalCallbacks(this);
-        // };
-        //
-        // Promise.prototype.reject = function (error) {
-        //     this.errorResponse = error;
-        //     this.failCallbacks.forEach(function (callback) {
-        //         callback(error);
-        //     });
-        //     runFinalCallbacks(this);
-        // };
-        //
-        // function runCallbacks(successCallback, errorCallback){
-        //     if (this.response){
-        //         successCallback(this.response);
-        //     }
-        //     else{
-        //         errorCallback(this.errorResponse);
-        //     }
-        // }
-        //
-        // function runFinalCallbacks(promise) {
-        //     promise.finalCallbacks.forEach(function (callback) {
-        //         callback();
-        //     });
-        // }
+
 
 
         var promise = new Promise(function (resolve, reject) {
@@ -104,6 +45,7 @@
             console.log(response);
         });
             promise.then(function (response) {
+                console.log('promise', promise);
                 response.forEach(function (message) {
                     document.getElementById('chatContent').innerHTML += message.message + '</br/>';
                 });
@@ -112,8 +54,13 @@
             }
         );
 
-        Promise.all([promise]).then(function(){
+        let promise2 = ajax({url: '/allmessages2'});
+
+        Promise.all([promise, promise2]).then(function(){
+            console.log('promise1', promise, 'promise2', promise2);
             document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';
+        }, function(){
+            console.log('promise1', promise, 'promise2', promise2);
         });
         // }).finally(function () {
         //     document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';

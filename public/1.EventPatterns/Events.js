@@ -37,6 +37,21 @@
         });
     };
 
+    var myPubplisher = new publisher();
+
+    myPubplisher.addEventListener('Init', initFunc);
+
+    function initFunc(args){
+        console.log('Event args', args);
+    }
+
+    myPubplisher.fireEvent('Init', {InitTime: new Date()});
+
+
+
+
+
+
 
     document.addEventListener('DOMContentLoaded', function(){
         document.querySelectorAll('.subscriber').forEach(function(element){
