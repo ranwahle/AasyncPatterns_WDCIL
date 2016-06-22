@@ -23,32 +23,3 @@
     });
 
 }());
-
-
-
-
-
-$.ajax({url: '', data: mm
-    }
-).then(function(data){
-    
-}).then().fail().catch().finally().done();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
