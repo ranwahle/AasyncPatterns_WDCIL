@@ -1,6 +1,15 @@
-/**
- * Created by ranwahle on 19/06/2016.
- */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); })
+                .then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+
+
+
 (function () {
 
    // function ajax(options) {
@@ -102,26 +111,37 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-       var fetchPromise =  fetch( '/allmessages').then(function(response) {
-            console.log(response);
-            return response;
-        });
-        fetchPromise.then(function (response) {
-            response.json().then(function(messages) {
-               let messagesIterator  = makeIterator(messages);
-                let current =  messagesIterator.next();
-                do {
 
-                    if (current.value){
-                        document.getElementById('chatContent').innerHTML += current.value.message + '</br/>';
-                    }
-                    current =  messagesIterator.next();
-                }while(!current.done);
-                
+        return __awaiter(this, void 0, void 0, function*() {
+            let messagesResponse = yield  fetch( '/allmessages');
+            let messages = yield messagesResponse.json();
+            messages.forEach(message => {
+                if (message){
+                    document.getElementById('chatContent').innerHTML += message.message + '</br/>';
+                }
             });
-        }, function (error) {
-            console.error(error);
-        });
+        }  );
+
+       // var fetchPromise =  fetch( '/allmessages').then(function(response) {
+       //      console.log(response);
+       //      return response;
+       //  });
+       //  fetchPromise.then( (response) => {
+       //      response.json().then((messages) => {
+       //         let messagesIterator  = makeIterator(messages);
+       //          let current =  messagesIterator.next();
+       //          do {
+       //
+       //              if (current.value){
+       //                  document.getElementById('chatContent').innerHTML += current.value.message + '</br/>';
+       //              }
+       //              current =  messagesIterator.next();
+       //          }while(!current.done);
+       //
+       //      });
+       //  }, function (error) {
+       //      console.error(error);
+       //  });
 
         Promise.all([fetchPromise]).then(function(value){
             console.log('Fetch has resolved');

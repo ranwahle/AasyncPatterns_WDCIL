@@ -15,10 +15,12 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
-app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket){
     console.log('a user connected');

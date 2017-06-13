@@ -98,21 +98,21 @@
         var nextIndex = 0;
 
         return {
-            next: function(){
+            next: () => {
                 return nextIndex < collection.length ?
-                {value: collection[nextIndex++], done: false} :
-                {done: true};
+                    {value: collection[nextIndex++], done: false} :
+                    {done: true};
             }
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-       var fetchPromise =  fetch( '/allmessages').then(function(response) {
+    document.addEventListener('DOMContentLoaded',  () => {
+       var fetchPromise =  fetch( '/allmessages').then((response) => {
             console.log(response);
             return response;
         });
-        fetchPromise.then(function (response) {
-            response.json().then(function(messages) {
+        fetchPromise.then( (response) => {
+            response.json().then((messages) => {
                let messagesIterator  = makeIterator(messages);
                 let current =  messagesIterator.next();
                 do {

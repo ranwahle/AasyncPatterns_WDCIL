@@ -21,15 +21,15 @@
     //
     // }
 
-    document.addEventListener('DOMContentLoaded', function () {
-       var jsonPromise, fetchPromise =  fetch( '/allmessages')
-           .then(function(response) {
+    document.addEventListener('DOMContentLoaded',  () => {
+       const  fetchPromise =  fetch( '/allmessages')
+           .then((response) => {
             console.log(response);
             return response;
-        }).then(function (response) {
-               return response.json().then(function(messages) {
-                messages.forEach(function (message) {
-                    document.getElementById('chatContent').innerHTML += message.message + '</br/>';
+        }).then( (response) => {
+               return response.json().then(messages => {
+                messages.forEach(message =>{
+                    document.getElementById('chatContent').innerHTML += `${message.message}<br/>`;
                 });
 
             });
@@ -38,7 +38,7 @@
         });
 
         Promise.all([fetchPromise,fetchPromise.chain])
-            .then(function(){
+            .then(() => {
             console.log(fetchPromise,fetchPromise.chain);
             console.log('Fetch has been resolved');
             document.getElementById('chatContent').innerHTML += 'End of past messages </br/>';

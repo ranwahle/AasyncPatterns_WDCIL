@@ -2,7 +2,7 @@
  * Created by ranwahle on 18/06/2016.
  */
 (function(){
-    var socket = io('http://localhost:3010');
+    var socket = io();
 
     document.addEventListener('DOMContentLoaded', function(){
        document.getElementById('btnSend').addEventListener('click',
@@ -23,32 +23,3 @@
     });
 
 }());
-
-
-
-
-
-$.ajax({url: '', data: mm
-    }
-).then(function(data){
-    
-}).then().fail().catch().finally().done();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
