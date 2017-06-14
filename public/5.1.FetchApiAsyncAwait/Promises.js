@@ -23,7 +23,7 @@
 
     document.addEventListener('DOMContentLoaded',  async () => {
         try {
-            const response = await fetch('/allmessages1');
+            const response = await fetch('/allmessages');
 
             console.log(response);
 

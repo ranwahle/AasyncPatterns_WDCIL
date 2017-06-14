@@ -8,12 +8,12 @@ class GeoLocation {
     getCurrntPosition() {
 
         var promise = new Promise((resolve, reject) => {
-            if (!navigator.geolocation) {
+            if (!window.navigator.geolocation) {
                 reject('Your browser doesn\'t support geo location');
             }
             else {
 
-                navigator.geolocation.getCurrentPosition(function (position) {
+                window.navigator.geolocation.getCurrentPosition(function (position) {
                     resolve({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
